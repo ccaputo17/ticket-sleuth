@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:c="http://www.springframework.org/schema/c"
+  xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.2.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-4.2.xsd"
+  default-init-method="init">
+
+  <beans profile="PostgresDataSource">
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+      p:driverClassName="org.postgresql.Driver" 
+      p:url="jdbc:postgresql://localhost:5432/ticketsleuth"
+      p:username="ticketsleuth"/>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+      <property name="dataSource" ref="dataSource" />
+      <property name="annotatedClasses">
+        <list>
+          <value>com.walmart.ticketsleuth.model.impl.LevelImpl</value>
+          <value>com.walmart.ticketsleuth.model.impl.SeatImpl</value>
+          <value>com.walmart.ticketsleuth.model.impl.SeatHoldImpl</value>
+        </list>
+      </property>
+    </bean>
+  </beans>
+
+  <beans>
+    <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory"/>
+    <tx:annotation-driven transaction-manager="txManager"/>
+  </beans>
+
+</beans>

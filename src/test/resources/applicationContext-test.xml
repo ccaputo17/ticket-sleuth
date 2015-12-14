@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:c="http://www.springframework.org/schema/c"
+  xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.2.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-4.2.xsd"
+  default-init-method="init">
+
+  <bean id="orchestraLevel" class="com.walmart.ticketsleuth.model.impl.LevelImpl" 
+    p:id="1" p:name="Orchestra" p:price="100.00" p:rows="5" p:seatsPerRow="10"/>
+
+  <bean id="mainLevel" class="com.walmart.ticketsleuth.model.impl.LevelImpl" 
+    p:id="2" p:name="Main Level" p:price="75.00" p:rows="10" p:seatsPerRow="10"/>
+
+  <bean id="balcony1" class="com.walmart.ticketsleuth.model.impl.LevelImpl" 
+    p:id="3" p:name="Balcony One" p:price="50.00" p:rows="5" p:seatsPerRow="10"/>
+
+  <bean id="blacony2" class="com.walmart.ticketsleuth.model.impl.LevelImpl" 
+    p:id="4" p:name="Balcony Two" p:price="40.00" p:rows="5" p:seatsPerRow="10"/>
+
+  <util:list id="venueLevels" value-type="com.walmart.ticketsleuth.model.impl.LevelImpl">
+    <ref bean="orchestraLevel"/>
+    <ref bean="mainLevel"/>
+    <ref bean="balcony1"/>
+    <ref bean="blacony2"/>
+  </util:list>
+
+  <util:list id="selectedLevels" value-type="com.walmart.ticketsleuth.model.impl.LevelImpl">
+    <ref bean="orchestraLevel"/>
+    <ref bean="mainLevel"/>
+  </util:list>
+
+  <bean id="orchestraSeat" class="com.walmart.ticketsleuth.model.impl.SeatImpl" abstract="true"
+    p:level-ref="orchestraLevel" p:purchasePrice="100.00" p:row="1"/>
+
+  <util:list id="unavailableSeats" value-type="com.walmart.ticketsleuth.model.impl.SeatImpl">
+    <bean parent="orchestraSeat"  p:id="1" p:seatNumber="1"/>
+    <bean parent="orchestraSeat"  p:id="2" p:seatNumber="2"/>
+    <bean parent="orchestraSeat"  p:id="3" p:seatNumber="3"/>
+    <bean parent="orchestraSeat"  p:id="6" p:seatNumber="6"/>
+    <bean parent="orchestraSeat"  p:id="7" p:seatNumber="7"/>
+    <bean parent="orchestraSeat"  p:id="8" p:seatNumber="8"/>
+  </util:list>
+
+  <util:list id="availableSeats" value-type="com.walmart.ticketsleuth.model.impl.SeatImpl">
+    <bean parent="orchestraSeat"  p:id="4" p:seatNumber="4"/>
+    <bean parent="orchestraSeat"  p:id="5" p:seatNumber="5"/>
+    <bean parent="orchestraSeat"  p:id="9" p:seatNumber="9"/>
+    <bean parent="orchestraSeat"  p:id="10" p:seatNumber="10"/>
+  </util:list>
+
+  <bean id="customerEmail" class="java.lang.String" c:_0="joe.tester@email.com" />
+</beans>
