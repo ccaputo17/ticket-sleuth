@@ -1,0 +1,9 @@
+Ticket Sleuth
+
+The services are coded in Java using Spring MVC. The project is built using Gradle. The project includes a set of tests which are executed as part of the Gradle build. The fastest way to get the services up and running is to run them on Jetty using the Gradle Jetty plugin. If you execute the command "gradle jettyRunWar" the services will start up on localhost:8080. The context path is ticket-sleuth. One thing to know is that b/c of CORS I had to allow cross origin access on my RestController classes. As-is it will allow cross-origin calls coming from localhost:8888 (the AngularJS front-end), but if your setup looks different the annotations will need to be adjusted.
+
+The services require a back-end datastore to manage the ticket inventories. I have coded everything to use Hibernate and the project is configured to run on Postgres. I actually split the data model into interfaces and implementations b/c originally I had planned to implement the persistence for both Postgres and MongoDB, but I ran out of time.
+
+The Postgres configuration expects Postgres to be running on localhost on port 5432. It expects to be able to connect to the "ticketsleuth" database using the "ticketsleuth" user/role. The venue configuration is stored in the Postgres database in the "level" table and read-in dynamically by the application. You can configure the levels directly via psql or you can use the CRUD web services exposed through the "LevelController" class in the "com.walmart.ticketsleuth.rest" package.
+
+Locally I coded the project using Java 8, but I didn't use anything Java 8 specific so that folks would not run into compatibility issues if they were only setup to run Java 7.
