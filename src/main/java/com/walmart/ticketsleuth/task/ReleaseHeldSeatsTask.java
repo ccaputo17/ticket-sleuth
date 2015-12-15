@@ -10,10 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.walmart.ticketsleuth.dao.SeatDao;
 import com.walmart.ticketsleuth.dao.SeatHoldDao;
-import com.walmart.ticketsleuth.model.Seat;
 import com.walmart.ticketsleuth.model.SeatHold;
+import com.walmart.ticketsleuth.service.TicketService;
 
 @Component
 public class ReleaseHeldSeatsTask
@@ -24,7 +23,7 @@ public class ReleaseHeldSeatsTask
   private long fixedDelay;
   
   @Autowired
-  SeatDao seatDao;
+  TicketService ticketService;
   
   @Autowired
   SeatHoldDao seatHoldDao;
@@ -39,14 +38,7 @@ public class ReleaseHeldSeatsTask
     for ( SeatHold seatHold : expired )
     {
       logger.debug( "Deleting expired seatHold: {}", seatHold );
-      seatHoldDao.delete( seatHold );
-
-      // remove each seat record before removing the seat hold record
-      for ( Seat seat : seatHold.getSeats() )
-      {
-        logger.debug( "Deleting seat record: {}", seat );
-        seatDao.delete( seat );
-      }
+      ticketService.releaseSeats( seatHold.getId() );
     }
   }
 }
