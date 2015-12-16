@@ -17,4 +17,6 @@ public interface LevelDao
   void save( Level level );
 
   void delete( Level level );
+
+  void deleteById( Long id );
 }

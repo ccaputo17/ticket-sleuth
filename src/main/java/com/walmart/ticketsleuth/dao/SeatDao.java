@@ -17,4 +17,6 @@ public interface SeatDao
   void save( Seat seat );
 
   void delete( Seat seat );
+
+  void deleteById( Long id );
 }

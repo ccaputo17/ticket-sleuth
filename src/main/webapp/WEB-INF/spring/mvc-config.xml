@@ -23,12 +23,17 @@
 
   <mvc:annotation-driven/>
 
+  <mvc:cors>
+    <mvc:mapping path="/**"
+      allowed-origins="http://localhost:8888"
+      allowed-methods="GET, PUT, POST, DELETE" />
+  </mvc:cors>
+
 <!--
   <bean id="localeResolver" class="com.blackboard.provider.web.resolver.RequestParameterLocaleResolver">
     <property name="localeParameters">
       <list>
         <value>locale</value>
-        <value>launch_presentation_locale</value>
       </list>
     </property>
   </bean>
