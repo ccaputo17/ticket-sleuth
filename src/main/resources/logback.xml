@@ -2,25 +2,24 @@
 
 <configuration scan="true" scanPeriod="120 seconds">
 
+<!-- 
   <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-    </encoder>
-  </appender>
-
-<!-- 
-  <appender name="provider" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>./logs/x-bbgs-tool-provider.log</file>
-    <append>true</append>
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <fileNamePattern>${blackboard.home:-.}/logs/x-bbgs-tool-provider.%d{yyyy-MM-dd}.log</fileNamePattern>
-      <maxHistory>10</maxHistory>
-    </rollingPolicy>
-    <encoder>
-      <pattern>%-5p[%d{yyyy-MM-dd HH:mm:ss}][%-50(%L:%logger{40})] : %m%n{10}</pattern>
+      <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
     </encoder>
   </appender>
  -->
+
+  <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <append>true</append>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>./logs/ticket-sleuth.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>10</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
   
   <logger name="com.walmart.ticketsleuth">
     <level value="debug"/>
@@ -32,7 +31,7 @@
   
   <root>
     <level value="error"/>
-    <appender-ref ref="stdout" />
+    <appender-ref ref="logfile" />
   </root>
 
 </configuration>
