@@ -34,7 +34,6 @@ public class TicketServiceController
   public Integer numSeatsAvailable( @PathVariable Long levelId )
   {
     logger.debug( "numSeatsAvailable: levelId={}", levelId );
-    
     return ticketService.numSeatsAvailable( levelId, levelId );
   }
 
@@ -45,7 +44,6 @@ public class TicketServiceController
                                     @RequestParam String customerEmail )
   {
     logger.debug( "findAndHoldSeats: numSeats={},minLevel={},maxLevel={},customerEmail={}", numSeats, minLevel, maxLevel, customerEmail );
-    
     return ticketService.findAndHoldSeats( numSeats, minLevel, maxLevel, customerEmail );
   }
 
@@ -67,7 +65,6 @@ public class TicketServiceController
   public void releaseSeats( @PathVariable Long seatHoldId )
   {
     logger.debug( "releaseSeats: seatHoldId={}", seatHoldId );
-    
     ticketService.releaseSeats( seatHoldId );
   }
 }

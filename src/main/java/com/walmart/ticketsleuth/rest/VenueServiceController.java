@@ -26,14 +26,14 @@ public class VenueServiceController
   @RequestMapping( value = "/capacity", method = GET )
   public List<Level> getSeatingLevels()
   {
+    logger.debug( "getSeatingLevels" );
     return venueService.getSeatingLevels();
   }
 
   @RequestMapping( value = "/{levelId}/capacity", method = GET )
   public Integer getSeatingCapacity( @PathVariable Long levelId )
   {
-    logger.debug( "levelId={}", levelId );
-    
+    logger.debug( "getSeatingCapacity: levelId={}", levelId );
     return venueService.getSeatingCapacity( levelId, levelId );
   }
 }
